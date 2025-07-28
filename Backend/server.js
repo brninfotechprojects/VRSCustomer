@@ -5,7 +5,7 @@ const authRoutes = require("./routes/auth");
 const path = require("path");
 
 const app = express();
-const PORT = 5000;
+const PORT = 6000;
 
 const MONGO_URI =
   "mongodb+srv://manjunadhb:manjunadhb@vrs.69ivstk.mongodb.net/MVP?retryWrites=true&w=majority&appName=VRS";
@@ -19,9 +19,9 @@ app.use(express.json());
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, "../dist"))); // ← CORRECTED
 
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../dist", "index.html")); // ← CORRECTED
-});
+// app.get("*", (req, res) => {
+//   res.sendFile(path.join(__dirname, "../dist", "index.html")); // ← CORRECTED
+// });
 
 // Routes
 app.use("/api/auth", authRoutes);

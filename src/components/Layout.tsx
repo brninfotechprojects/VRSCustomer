@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import {
   Home,
@@ -20,6 +20,7 @@ interface LayoutProps {
 }
 
 function Layout({ children }: LayoutProps) {
+  let navigate = useNavigate();
   const { user, logout } = useAuth();
   const location = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -33,8 +34,9 @@ function Layout({ children }: LayoutProps) {
   ];
 
   const handleLogout = () => {
-    logout();
+    //logout();
     setIsMobileMenuOpen(false);
+    navigate("/signin");
   };
 
   return (

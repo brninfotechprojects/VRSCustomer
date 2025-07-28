@@ -32,26 +32,27 @@ function SignIn() {
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+    navigate("/dashboard");
+    // e.preventDefault();
 
-    if (!validateForm()) return;
+    // if (!validateForm()) return;
 
-    setIsLoading(true);
+    // setIsLoading(true);
 
-    try {
-      const success = await login(formData.email, formData.password);
+    // try {
+    //   const success = await login(formData.email, formData.password);
 
-      if (success) {
-        navigate("/dashboard");
-      } else {
-        alert("Login failed. Please check credentials.");
-      }
-    } catch (err) {
-      console.error("Login error:", err);
-      alert("Something went wrong.");
-    } finally {
-      setIsLoading(false);
-    }
+    //   if (success) {
+    //     navigate("/dashboard");
+    //   } else {
+    //     alert("Login failed. Please check credentials.");
+    //   }
+    // } catch (err) {
+    //   console.error("Login error:", err);
+    //   alert("Something went wrong.");
+    // } finally {
+    //   setIsLoading(false);
+    // }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
