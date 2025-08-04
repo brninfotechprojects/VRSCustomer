@@ -5,7 +5,6 @@ import logo from "../assets/VRSLogo.png";
 import {
   Eye,
   EyeOff,
-  Zap,
   Mail,
   Phone,
   User,
@@ -64,33 +63,19 @@ function SignUp() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
+    
     if (!validateForm()) return;
 
     setIsLoading(true);
-
     try {
-      const response = await fetch("http://localhost:6000/api/auth/signup", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          phone: formData.phone,
-          password: formData.password,
-        }),
-      });
-
-      if (response.ok) {
-        alert("User created successfully! Please Sign in.");
-        navigate("/dashboard");
+      const success = await signup(formData.name, formData.email, formData.phone, formData.password);
+      if (success) {
+        navigate('/dashboard');
       } else {
-        const data = await response.json();
-        alert(data.message || "Signup failed");
+        setErrors({ submit: 'Registration failed. Please try again.' });
       }
     } catch (error) {
-      console.error("Signup error:", error);
-      alert("Something went wrong. Please try again later.");
+      setErrors({ submit: 'Something went wrong. Please try again.' });
     } finally {
       setIsLoading(false);
     }
@@ -120,7 +105,7 @@ function SignUp() {
             </span> */}
             <img
               style={{ objectFit: "contain", height: "90px" }}
-              src={logo}
+              src={logo} alt="VR Shuttle Logo"
             ></img>
           </div>
           <h2 className="text-3xl font-bold text-gray-900">

@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
-import { Eye, EyeOff, Zap, Mail, Lock, Chrome } from "lucide-react";
+import { Eye, EyeOff, Mail, Lock, Chrome } from "lucide-react";
 import logo from "../assets/VRSLogo.png";
 
 function SignIn() {
   const [formData, setFormData] = useState({
-    email: "",
-    password: "",
+    email: "customer@gmail.com",
+    password: "Customer@123",
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [showPassword, setShowPassword] = useState(false);
@@ -32,27 +32,23 @@ function SignIn() {
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    navigate("/dashboard");
-    // e.preventDefault();
+    e.preventDefault();
 
-    // if (!validateForm()) return;
+    if (!validateForm()) return;
 
-    // setIsLoading(true);
-
-    // try {
-    //   const success = await login(formData.email, formData.password);
-
-    //   if (success) {
-    //     navigate("/dashboard");
-    //   } else {
-    //     alert("Login failed. Please check credentials.");
-    //   }
-    // } catch (err) {
-    //   console.error("Login error:", err);
-    //   alert("Something went wrong.");
-    // } finally {
-    //   setIsLoading(false);
-    // }
+    setIsLoading(true);
+    try {
+      const success = await login(formData.email, formData.password);
+      if (success) {
+        navigate("/dashboard");
+      } else {
+        setErrors({ submit: "Invalid email or password. Please try again." });
+      }
+    } catch (error) {
+      setErrors({ submit: "Something went wrong. Please try again." });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

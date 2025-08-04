@@ -11,7 +11,6 @@ import {
   LogOut,
   Menu,
   X,
-  Zap,
 } from "lucide-react";
 import logo from "../assets/VRSLogo.png";
 
@@ -34,7 +33,7 @@ function Layout({ children }: LayoutProps) {
   ];
 
   const handleLogout = () => {
-    //logout();
+    logout();
     setIsMobileMenuOpen(false);
     navigate("/signin");
   };
